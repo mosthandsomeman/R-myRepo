@@ -1,0 +1,253 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Lab 1: Data Manipulation, Random Number Generation},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{Lab 1: Data Manipulation, Random Number Generation}
+\author{}
+\date{\vspace{-2.5em}September 21, 2020}
+
+\begin{document}
+\maketitle
+
+Today's agenda: Manipulating data objects; using the built-in functions,
+doing numerical calculations, and basic plots; reinforcing core
+probabilistic ideas.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{-1}
+\tightlist
+\item
+  Open a new R Markdown file; set the output to HTML mode and ``Knit''.
+  This should produce a web page with the knitting procedure executing
+  your code blocks. You can edit this new file to produce your homework
+  submission.
+\end{enumerate}
+
+\hypertarget{background}{%
+\subsection{Background}\label{background}}
+
+The exponential distribution is defined by its cumulative distribution
+function
+
+\[F(x) = 1-e^{-\lambda x}\]
+
+The R function \texttt{rexp} generates random variables with an
+exponential distribution.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rexp}\NormalTok{(}\DataTypeTok{n=}\DecValTok{10}\NormalTok{, }\DataTypeTok{rate=}\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 0.175010043 0.003414805 0.095499582 0.046811053 0.024805705 0.202061963
+##  [7] 0.227913643 0.127331554 0.319665699 0.027383198
+\end{verbatim}
+
+produces 10 exponentially-distributed numbers with rate (\(\lambda\)) of
+5. If the second argument is omitted, the default rate is 1; this is the
+\texttt{standard\ exponential\ distribution}.
+
+\hypertarget{part-i}{%
+\subsection{Part I}\label{part-i}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Generate 200 random values from the standard exponential distribution
+  and store them in a vector \texttt{exp.draws.1}. Find the mean and
+  standard deviation of \texttt{exp.draws.1}.
+\item
+  Repeat, but change the rate to 0.1, 0.5, 5 and 10, storing the results
+  in vectors called \texttt{exp.draws.0.1}, \texttt{exp.draws.0.5},
+  \texttt{exp.draws.5} and \texttt{exp.draws.10}.
+\item
+  The function \texttt{plot()} is the generic function in R for the
+  visual display of data. \texttt{hist()} is a function that takes in
+  and bins data as a side effect. To use this function, we must first
+  specify what we'd like to plot.
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    Use the \texttt{hist()} function to produce a histogram of your
+    standard exponential distribution.
+  \item
+    Use \texttt{plot()} with this vector to display the random values
+    from your standard distribution in order.
+  \item
+    Now, use \texttt{plot()} with two arguments -- any two of your other
+    stored random value vectors -- to create a scatterplot of the two
+    vectors against each other.
+  \end{enumerate}
+\item
+  We'd now like to compare the properties of each of our vectors. Begin
+  by creating a vector of the means of each of our five distributions in
+  the order we created them and saving this to a variable name of your
+  choice. Using this and other similar vectors, create the following
+  scatterplots:
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    The five means versus the five rates used to generate the
+    distribution.
+  \item
+    The standard deviations versus the rates.
+  \item
+    The means versus the standard deviations.
+  \end{enumerate}
+\end{enumerate}
+
+For each plot, explain in words what's going on.
+
+\hypertarget{part-ii}{%
+\subsection{Part II}\label{part-ii}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  R's capacity for data and computation is large to what was available
+  10 years ago.
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    To show this, generate 1.1 million numbers from the standard
+    exponential distribution and store them in a vector called
+    \texttt{big.exp.draws.1}. Calculate the mean and standard deviation.
+  \item
+    Plot a histogram of \texttt{big.exp.draws.1}. Does it match the
+    function \(1-e^{-x}\)? Should it?
+  \item
+    Find the mean of all of the entries in \texttt{big.exp.draws.1}
+    which are strictly greater than 1. You may need to first create a
+    new vector to identify which elements satisfy this.
+  \item
+    Create a matrix, \texttt{big.exp.draws.1.mat}, containing the the
+    values in \texttt{big.exp.draws.1}, with 1100 rows and 1000 columns.
+    Use this matrix as the input to the \texttt{hist()} function and
+    save the result to a variable of your choice. What happens to your
+    data?
+  \item
+    Calculate the mean of the 371st column of
+    \texttt{big.exp.draws.1.mat}.
+  \item
+    Now, find the means of all 1000 columns of
+    \texttt{big.exp.draws.1.mat} simultaneously. Plot the histogram of
+    column means. Explain why its shape does not match the histogram in
+    problem 5b).
+  \item
+    Take the square of each number in \texttt{big.exp.draws.1}, and find
+    the mean of this new vector. Explain this in terms of the mean and
+    standard deviation of \texttt{big.exp.draws.1}.
+    \textbf{\emph{Hint:}} think carefully about the formula R uses to
+    calculate the standard deviation.
+  \end{enumerate}
+\end{enumerate}
+
+\end{document}

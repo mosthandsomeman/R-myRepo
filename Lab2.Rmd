@@ -1,0 +1,80 @@
+---
+title: 'Lab 2: Data Visulization'
+date: "September 28, 2020"
+output:
+  html_document:
+    df_print: paged
+---
+```{r setup, message = F, include=FALSE}
+library(tidyverse)
+```
+
+Today's agenda: data visualization with tennis grand slams data set. Play with the following R code to figure out what we are doing here.
+```{r}
+# load data
+grand_slams <- read.csv("data/grand_slams.csv")
+```
+### First plot
+Create a scatter plot with rolling_win_count versus tournament_date. Explain what you see in the plot.
+```{r}
+library(ggplot2)
+```
+```{r}
+ggplot(data = grand_slams) +
+  geom_point(aes(x = tournament_date, y = rolling_win_count))
+```
+
+### Second plot
+Now,  cut down the data, plot data again with player names as colour.
+
+```{r}
+ggplot(data = grand_slams) +
+  geom_point(aes(x = tournament_date, y = rolling_win_count, color = name))
+```
+
+```{r}
+more_than_10_wins <- grand_slams %>%
+      group_by(name) %>%
+      filter(any(rolling_win_count > 10))
+
+ggplot(data = more_than_10_wins) +
+  geom_point(aes(x = tournament_date, y = rolling_win_count, color = name))
+```
+
+```{r}
+
+```
+
+### Third plot
+Simple bar plot. 
+```{r}
+ggplot(data = more_than_10_wins, aes(x = name)) +
+geom_bar()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+Now change bar color with `fill`.
+```{r}
+ggplot(data = more_than_10_wins, aes(x = name, fill = grand_slam)) +
+geom_bar()+
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
+```
+
+
+### Fourth plot
+Days from first win.
+```{r}
+more_than_10_wins <- more_than_10_wins %>% group_by(name) %>%
+mutate(
+first_win = min(tournament_date), days_since_first = as.numeric(tournament_date - first_win))
+```
+Plot lines grouped by player and split by gender.
+```{r}
+ggplot(data= more_than_10_wins, mapping = aes(
+  x = days_since_first,
+  y = rolling_win_count,
+  
+))
+```
+
+

@@ -1,0 +1,106 @@
+---
+title: "lab1.homework"
+author: "fzc"
+date: "2020/9/21"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+#Part I
+```{r}
+exp.draws.1 <- rexp(n = 200, rate = 1)
+exp.draws.1.mean <- mean(exp.draws.1)
+exp.draws.1.sd <- sd(exp.draws.1, na.rm = FALSE)
+exp.draws.1.var <- var(exp.draws.1, na.rm = FALSE)
+
+
+exp.draws.0.1 <- rexp(n = 200, rate =0.1)
+exp.draws.0.5 <- rexp(n = 200, rate = 0.5)
+exp.draws.5 <- rexp(n = 200, rate = 5)
+exp.draws.10 <- rexp(n = 200, rate = 10)
+
+
+hist(exp.draws.1)
+
+plot(exp.draws.1)
+plot(sort(exp.draws.1))
+plot(exp.draws.5)
+plot(exp.draws.10)
+plot(exp.draws.0.1)
+plot(exp.draws.0.5)
+plot(exp.draws.1, exp.draws.10)
+```
+
+```{r}
+exp.draws.mean <- c(mean(exp.draws.1), mean(exp.draws.0.1), mean(exp.draws.0.5), mean(exp.draws.5),mean(exp.draws.10))
+
+exp.drwas.rate <- c(1, 0.1, 0.5, 5, 10)
+exp.drwas.deviations <- c(sd(exp.draws.1), sd(exp.draws.0.1), sd(exp.draws.0.5), sd(exp.draws.5),sd(exp.draws.10))
+```
+
+```{r}
+plot(exp.draws.mean, exp.drwas.rate)
+
+plot(exp.drwas.deviations, exp.drwas.rate)
+
+plot(exp.draws.mean, exp.drwas.deviations)
+```
+
+
+#Part II
+```{r}
+big.exp.draws.1 <-rexp(n = 1100000, rate = 1)
+
+big.exp.draws.1.mean <- mean(big.exp.draws.1)
+
+big.exp.draws.1.var <- sd(big.exp.draws.1)
+
+plot(big.exp.draws.1)
+```
+
+```{r}
+big.exp.draws.bigThan1 <- big.exp.draws.1[big.exp.draws.1 > 1]
+
+
+big.exp.draws.1.mat <- matrix(big.exp.draws.bigThan1, nrow = 1100)
+
+big.exp.draws.1.hist <- hist(big.exp.draws.1.mat)
+```
+
+
+```{r}
+#mean(big.exp.draws.1.mat[, 371])
+big.exp.draws.1.mat.colMean <- colMeans(big.exp.draws.1.mat)
+
+hist(big.exp.draws.1.mat.colMean)
+
+```
+
+```{r}
+
+big.exp.draws.1.sq <- big.exp.draws.1 * big.exp.draws.1
+
+big.exp.draws.1.sq.mean = mean(big.exp.draws.1.sq)
+big.exp.draws.1.sq.var = sd(big.exp.draws.1.sq)
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
